@@ -1,0 +1,75 @@
+{
+  "cookies": [
+    {
+      "name": "remember",
+      "value": "1",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/bin",
+      "expires": 1802871530.564123,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "useri",
+      "value": "39053328840",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/bin",
+      "expires": 1802871530.564297,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "sigla_emp",
+      "value": "DAG",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/bin",
+      "expires": 1802871530.564333,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "login",
+      "value": "rodrigov",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/bin",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "chave",
+      "value": "1256MQPVAR",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/bin",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ssw_dom",
+      "value": "DAG",
+      "domain": "sistema.ssw.inf.br",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjgzOTQzMzAsInB4eSI6IjE3Mi4zMS43Ny4zIiwic3ViIjogInJvZHJpZ292In0.YXrr2Uf4GyB5RTDMHsXURe-7JnrYjsQ65IZzFCXtjyg",
+      "domain": ".sistema.ssw.inf.br",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

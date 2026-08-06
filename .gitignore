@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# environment
+.env
+
+# logs
+logs/
+*.log
+
+# debug
+debug/
+
+# playwright
+playwright-report/
+test-results/
+
+# vscode
+.vscode/
+
+# os
+.DS_Store
+Thumbs.db
+
+indext.js
