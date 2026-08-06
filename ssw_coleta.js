@@ -6,6 +6,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const fs = require("fs");
 const { chromium } = require("playwright");
 const { subirCsvColeta } = require("./dagoApi");
+const { limparDownloads } = require("./limparDownloads");
 
 // ================= LOG SETUP =================
 const LOG_DIR = path.join(process.cwd(), "logs");
@@ -372,6 +373,8 @@ const MAX_TENTATIVAS = 3;
 const INTERVALO_MS = 5 * 60 * 1000; // 5 minutos
 
 (async () => {
+  limparDownloads(30); // apaga downloads com mais de 30 dias
+
   for (let tentativa = 1; tentativa <= MAX_TENTATIVAS; tentativa++) {
     console.log(`🔁 Tentativa ${tentativa}/${MAX_TENTATIVAS} iniciada...`);
 
