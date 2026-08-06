@@ -3,9 +3,10 @@ const { spawn } = require("child_process");
 const path = require("path");
 
 const robos = [
-  "ssw.js",      // GRU
-  "ssw_ctb.js",  // CTB
-  "ssw_rec.js",  // REC
+  "ssw.js",         // GRU
+  "ssw_ctb.js",     // CTB
+  "ssw_rec.js",     // REC
+  "ssw_coleta.js",  // Coleta
 ];
 
 function rodarRobo(arquivo) {
