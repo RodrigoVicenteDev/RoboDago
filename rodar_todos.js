@@ -6,6 +6,7 @@ const robos = [
   "ssw.js",         // GRU
   "ssw_ctb.js",     // CTB
   "ssw_rec.js",     // REC
+  "ssw_vix.js",     // VIX
   "ssw_coleta.js",  // Coleta
 ];
 
