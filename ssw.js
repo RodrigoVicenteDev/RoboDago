@@ -474,7 +474,7 @@ async function runOnce() {
     await fill(p455, 'input[id="11"]', inicio);
     await fill(p455, 'input[id="12"]', fim);
 
-    await fill(p455, 'input[id="21"]', "T");
+    await fill(p455, 'input[id="21"]', "X"); // Liquidação X = inclui cancelados/substituídos
     await fill(p455, 'input[id="35"]', "E");
     await fill(p455, 'input[id="37"]', "B");
     await fill(p455, 'input[id="38"]', "F");
