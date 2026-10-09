@@ -378,7 +378,51 @@ async function subirCsvColeta(csvPath) {
   };
 }
 
+// ==================== CADASTRO DE CLIENTES SSW (opção 467) ====================
+
+// escopo: "com" (relatório COM tabela combinada) | "sem" (SEM tabela)
+async function subirClientesSsw(arquivoPath, escopo) {
+  console.log(`16) Enviando cadastro de clientes SSW (467, escopo "${escopo}") para a API Dago...`);
+
+  if (!fs.existsSync(arquivoPath)) {
+    throw new Error(`Arquivo não encontrado: ${arquivoPath}`);
+  }
+
+  const email = process.env.DAGO_EMAIL ?? "";
+  const senha = process.env.DAGO_SENHA ?? "";
+
+  if (!email || !senha) {
+    throw new Error("Defina DAGO_EMAIL e DAGO_SENHA nas variáveis de ambiente.");
+  }
+
+  const authToken = await dagoLogin(email, senha);
+
+  const form = new FormData();
+  const blob = new Blob([fs.readFileSync(arquivoPath)], { type: "text/csv" });
+  form.append("Arquivo", blob, path.basename(arquivoPath));
+  form.append("Escopo", escopo);
+
+  const res = await fetch(`${BASE_URL}/api/clientes-ssw/importar`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${authToken}` },
+    body: form,
+  });
+
+  const { json, txt } = await readJsonSafe(res);
+  if (!res.ok) {
+    console.error(
+      `❌ 16.1) Importar clientes SSW falhou (${res.status}). Resposta:`,
+      summarizeBody(txt) || res.statusText
+    );
+    throw new Error(`Importar clientes SSW falhou (${res.status})`);
+  }
+
+  console.log("16.2) Importação de clientes SSW concluída:", summarizeBody(JSON.stringify(json?.resultado ?? json)));
+  return json;
+}
+
 module.exports = {
+  subirClientesSsw,
   subirCsvCtrc,
   dagoLogin,
   ctrcPreview,

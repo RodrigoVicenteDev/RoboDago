@@ -8,6 +8,7 @@ const robos = [
   "ssw_rec.js",     // REC
   "ssw_vix.js",     // VIX
   "ssw_coleta.js",  // Coleta
+  "ssw_clientes467.js", // Cadastro de clientes (467) -> /api/clientes-ssw/importar
 ];
 
 function rodarRobo(arquivo) {

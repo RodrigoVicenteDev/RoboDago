@@ -4,7 +4,9 @@
 const fs = require("fs");
 const path = require("path");
 
-function limparDownloads(diasMax = 30) {
+// prefixo (opcional): se informado, só apaga arquivos cujo nome começa com ele
+// (cada robô limpa o próprio lixo). Sem prefixo = comportamento antigo (apaga tudo velho).
+function limparDownloads(diasMax = 30, prefixo = "") {
   const dir = path.join(process.cwd(), "downloads");
   if (!fs.existsSync(dir)) return;
 
@@ -17,6 +19,7 @@ function limparDownloads(diasMax = 30) {
     try {
       const st = fs.statSync(alvo);
       if (!st.isFile()) continue; // só arquivos; ignora subpastas
+      if (prefixo && !nome.startsWith(prefixo)) continue;
       if (agora - st.mtimeMs > limiteMs) {
         fs.unlinkSync(alvo);
         removidos++;
