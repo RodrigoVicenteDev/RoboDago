@@ -1,5 +1,6 @@
 // ssw_clientes467.js  (Robô de CADASTRO DE CLIENTES - opção 467 / ssw0176)
-// Fluxo: login SSW -> opção 467 -> sem filtro de data (só tabela de fretes + formato Excel = S)
+// Fluxo: login SSW -> unidade MTZ no menu (todas as unidades) -> opção 467 -> último movimento
+//   010120 até hoje + tabela de fretes + formato Excel = S
 //   -> roda 2x (Tabelas de fretes "C"=com, depois "S"=sem) -> cada execução: ► -> aviso
 //   "Abrir a opção 156 agora" -> fila 156 -> espera "Baixar" -> baixa o .sswweb
 //   -> só depois de baixar os DOIS sobe na API Dago (POST /api/clientes-ssw/importar, escopo com/sem)
@@ -90,6 +91,18 @@ function ddMMyy(date) {
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const yy = String(date.getFullYear()).slice(-2);
   return `${dd}${mm}${yy}`;
+}
+
+// "Hoje" no fuso do Brasil (o servidor roda em UTC) no formato ddMMyy do SSW.
+function hojeBR() {
+  const p = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "America/Sao_Paulo",
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  }).formatToParts(new Date());
+  const g = (t) => p.find((x) => x.type === t).value;
+  return `${g("day")}${g("month")}${g("year")}`;
 }
 
 function parseBRDateTime(s) {
@@ -329,6 +342,8 @@ async function gerarEBaixar(context, menuPage, { escopo, tabFrete }, { usuario, 
   await debugScreenshot(p467, `debug_cliente467_${escopo}_aberta.png`);
 
   console.log("7) Preenchendo filtros...");
+  await fill(p467, "#data_ult_ini", "010120");
+  await fill(p467, "#data_ult_fin", hojeBR());
   await fill(p467, "#tab_frete", tabFrete);
   await fill(p467, "#excel", "S");
   await debugScreenshot(p467, `debug_cliente467_${escopo}_filtros.png`);
@@ -413,6 +428,20 @@ async function runOnce() {
     await page.waitForLoadState("networkidle");
     console.log("4) Logado. URL:", page.url());
     await debugScreenshot(page, "debug_cliente467_pos_login.png");
+
+    // Unidade MTZ só no menu inicial: com ela o relatório 467 sai com TODAS as unidades
+    // (a sigla da unidade dentro da 467 continua em branco).
+    console.log("4.1) Trocando a unidade do menu para MTZ...");
+    const unidadeScope = await scopeWithSelector(page, 'input[name="f2"]', 30000);
+    if (!unidadeScope) throw new Error("Campo Unidade (f2) do menu não encontrado.");
+    const unidade = unidadeScope.locator('input[name="f2"]').first();
+    await unidade.click({ clickCount: 3 });
+    await unidade.fill("MTZ");
+    await unidade.press("Tab");
+    await page.waitForTimeout(1500);
+    const unidadeVal = await unidade.inputValue().catch(() => "");
+    console.log("   Unidade no menu:", JSON.stringify(unidadeVal));
+    if (unidadeVal.toUpperCase() !== "MTZ") throw new Error(`Não consegui trocar a unidade para MTZ (ficou ${JSON.stringify(unidadeVal)}).`);
 
     // 1) baixa os DOIS arquivos (com e sem) na mesma sessão
     const baixados = [];
