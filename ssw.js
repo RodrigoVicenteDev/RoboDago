@@ -478,6 +478,7 @@ async function runOnce() {
     await fill(p455, 'input[id="35"]', "E");
     await fill(p455, 'input[id="37"]', "B");
     await fill(p455, 'input[id="38"]', "F");
+    await fill(p455, 'input[id="39"]', "A"); // Dados complementares 3: A = Manifesto/Romaneio (placas cavalo/carreta/entrega)
 
     console.log('10) Clicando botão id="40"...');
     await click(p455, 'a[id="40"], input[id="40"], button[id="40"]');
