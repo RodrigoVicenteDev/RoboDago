@@ -404,7 +404,7 @@ async function runOnce() {
   const USER = process.env.SITE_USER ?? "";
   const PASS = process.env.SITE_PASS ?? "";
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: false, channel: 'chromium' });
 
   try {
     const context = await browser.newContext({
@@ -413,6 +413,7 @@ async function runOnce() {
     });
 
     const page = await context.newPage();
+    
 
     console.log("1) Abrindo login...");
     await page.goto(LOGIN_URL, { waitUntil: "domcontentloaded" });
@@ -443,6 +444,8 @@ async function runOnce() {
     const p455Promise = waitForNewPageWithSelector(context, 'input[id="9"]', 45000);
 
     await typeOption455(page, "455");
+
+    
 
     // DEBUG: print e dump após digitar 455
     debugFrames(page, "(após digitar 455)");

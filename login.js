@@ -317,7 +317,7 @@ async function waitAndDownloadFrom156(page156, { startTimeMs, usuarioEsperado, t
   const USER = process.env.SITE_USER ?? "";
   const PASS = process.env.SITE_PASS ?? "";
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, channel: 'chromium' });
 
   const context = await browser.newContext({
     acceptDownloads: true,

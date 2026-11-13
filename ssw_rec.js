@@ -434,7 +434,7 @@ async function runOnce() {
   const USER = process.env.SITE_USER ?? "";
   const PASS = process.env.SITE_PASS ?? "";
 
-  const browser = await chromium.launch({ headless:true });
+  const browser = await chromium.launch({ headless: process.env.HEADLESS !== "0" });
 
   try {
     const context = await browser.newContext({
