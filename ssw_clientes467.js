@@ -78,7 +78,7 @@ function debugContextPages(context, label = "") {
 }
 // ===============================================
 
-const LOGIN_URL = "https://sistema.ssw.inf.br/bin/ssw0422";
+const LOGIN_URL = "https://tms.ssw.inf.br/bin/ssw0422";
 
 // escopo -> valor do campo "Tabelas de fretes" (C-com, S-sem)
 const ESCOPOS = [

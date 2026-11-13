@@ -92,7 +92,7 @@ function debugFrames(page, label = "") {
 }
 // ===============================================
 
-const LOGIN_URL = "https://sistema.ssw.inf.br/bin/ssw0422";
+const LOGIN_URL = "https://tms.ssw.inf.br/bin/ssw0422";
 
 function ddMMyy(date) {
   const dd = String(date.getDate()).padStart(2, "0");
