@@ -257,8 +257,8 @@ async function runOnce() {
     throw new Error("Variáveis SITE_DOMINIO/SITE_CPF/SITE_USER/SITE_PASS não carregadas. Confira o .env na pasta do robô.");
   }
 
-  const HEADLESS = String(process.env.HEADLESS ?? "1").trim() === "1";
-  const SLOWMO = Number(process.env.SLOWMO ?? (HEADLESS ? 0 : 800));
+  const HEADLESS = false; // SSW recusa navegador headless (403)
+  const SLOWMO = Number(process.env.SLOWMO ?? 0);
   const browser = await chromium.launch({ headless: HEADLESS, slowMo: SLOWMO });
 
   try {
